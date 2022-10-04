@@ -9,5 +9,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'MRTStationList';
   list = stationList;
+  condition = false;
 }
 
