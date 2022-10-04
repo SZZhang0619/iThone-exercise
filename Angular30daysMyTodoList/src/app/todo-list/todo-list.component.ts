@@ -1,5 +1,6 @@
 import { TodoListService } from './todo-list.service';
 import { Component, OnInit } from '@angular/core';
+import { Todo } from './todo.model';
 
 @Component({
   selector: 'app-todo-list',
@@ -30,8 +31,24 @@ export class TodoListComponent implements OnInit {
 
   }
 
-  getList(): string[] {
+  /**
+   * 取得代辦事項
+   *
+   * @return {*}  {Todo[]}
+   * @memberof TodoListComponent
+   */
+  getList(): Todo[] {
     return this.todoListService.getList();
+  }
+
+  /**
+   * 移除代辦事項
+   *
+   * @param {number} index - 代辦事項的索引位置
+   * @memberof TodoListComponent
+   */
+  remove(index: number): void{
+    this.todoListService.remove(index);
   }
 
 }

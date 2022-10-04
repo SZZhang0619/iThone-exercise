@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Todo } from './todo.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoListService {
 
-  private list: string[] = [];
+  private list: Todo[] = [];
 
   constructor() { }
 
@@ -19,17 +20,27 @@ export class TodoListService {
 
     //避免傳入的title 是無效值或空白字串，稍微判斷一下
     if(title || title.trim()){
-      this.list.push(title);
+      this.list.push(new Todo(title));
     }
   }
 
   /**
    * 取得代辦事項清單
    *
-   * @return {*}  {string[]}
+   * @return {*}  {Todo[]}
    * @memberof TodoListService
    */
-  getList(): string[]{
+  getList(): Todo[]{
     return this.list;
+  }
+
+  /**
+   * 移除代辦事項
+   *
+   * @param {number} index - 代辦事項的索引位置
+   * @memberof TodoListService
+   */
+  remove(index: number): void{
+    this.list.splice(index,1);
   }
 }
