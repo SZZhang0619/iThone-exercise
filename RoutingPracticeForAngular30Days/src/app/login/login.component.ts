@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  /**
+   * 按下登入的按鈕時會觸發的函式
+   *
+   * @memberof LoginComponent
+   */
+  login(): void {
+
+    this.router.navigate([''], {
+      queryParams: {
+        name: 'Frank'
+      }
+    });
   }
 
 }
