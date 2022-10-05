@@ -1,11 +1,15 @@
 import { NgModule, Pipe } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
+  {
+    path: 'feature',
+    loadChildren: () => import('./feature/feature.module').then(module => module.FeatureModule)
+  },
   {
     path: '',
     component: LayoutComponent,
@@ -38,7 +42,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    enableTracing: true
+    enableTracing: true,
+    preloadingStrategy: PreloadAllModules
   })],
   exports: [RouterModule]
 })

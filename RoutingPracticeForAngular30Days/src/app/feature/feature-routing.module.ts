@@ -4,7 +4,7 @@ import { FeatureComponent } from './feature.component';
 
 const routes: Routes = [
   {
-    path: 'feature',
+    path: '',
     component: FeatureComponent
   }
 ];

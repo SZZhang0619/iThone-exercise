@@ -1,4 +1,3 @@
-import { FeatureModule } from './feature/feature.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -19,7 +18,6 @@ import { LayoutComponent } from './layout/layout.component';
   ],
   imports: [
     BrowserModule,
-    FeatureModule,
     AppRoutingModule
   ],
   providers: [],
