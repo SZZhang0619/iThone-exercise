@@ -9,8 +9,6 @@ import { ProductItemComponent } from './shared/product-item/product-item.compone
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerInfoComponent,
-    PaymentInfoComponent,
   ],
   imports: [
     BrowserModule,

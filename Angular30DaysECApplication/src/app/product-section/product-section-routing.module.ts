@@ -1,7 +1,20 @@
+import { ProductSectionComponent } from './product-section.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProductListComponent } from './product-list/product-list.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: ProductSectionComponent,
+    children: [
+      {
+        path: ':type',
+        component: ProductListComponent
+      }
+    ]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

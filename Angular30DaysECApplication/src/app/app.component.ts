@@ -1,3 +1,4 @@
+import { appPath } from './app-path.const';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Angular30DaysECApplication';
+
+  /**
+   * 給Template用的路由定義
+   *
+   * @memberof AppComponent
+   */
+  path = appPath
 }
