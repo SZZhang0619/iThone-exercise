@@ -1,95 +1,83 @@
-import { Component } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
+import { Component,OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  // 綁定在帳號欄位上
-  account = '';
-
-  // 綁定在密碼欄位上
-  password = '';
-
-  // 帳號欄位的錯誤訊息
-  accountErrorMessage = '';
-
-  // 密碼欄位的錯誤訊息
-  passwordErrorMessage = '';
+  // 綁定在表單上
+  formGroup: FormGroup;
 
   /**
-   * 綁定在帳號欄位上，當使用者改變登入帳號時，會觸發此函式，並取得對應的錯誤訊息
-   *
-   * @param {string} account
-   * @param {ValidationErrors} errors
-   * @memberof AppComponent
+   * 用以取得帳號欄位的表單控制項
    */
-  accountValueChange(account: string, errors: ValidationErrors): void {
-    this.account = account;
-    this.validationCheck(errors, 'account');
+  get accountControl(): FormControl {
+    return this.formGroup.get('account') as FormControl;
   }
 
   /**
-   * 綁定在密碼欄位上，當使用者改變密碼時會觸發此函式
-   *
-   * @param {string} password
-   * @param {ValidationErrors} errors
-   * @memberof AppComponent
+   * 用以取得密碼欄位的表單控制項
    */
-  passwordValueChange(password: string, errors: ValidationErrors): void {
-    this.password = password;
-    this.validationCheck(errors, 'password');
+  get passwordControl(): FormControl {
+    return this.formGroup.get('password') as FormControl;
+  }
+
+  /**
+   * 透過 DI 取得 FomrBuilder 物件，用以建立表單
+   */
+  constructor(private formBuilder: FormBuilder) {}
+
+  /**
+   * 當 Component 初始化的時候初始化表單
+   */
+  ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      account: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b$/gi)
+        ]
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(16)
+        ]
+      ]
+    });
   }
 
   // 綁定在表單上，當使用者按下登入按鈕時會觸發此函式
   login(): void {
-    // do Login...
+    // do login...
   }
 
   /**
-   * 透過欄位裡的 ValidationErrors 來設定該欄位的錯誤訊息
+   * 透過該欄位的表單控制項來取得該欄位的錯誤訊息
    *
-   * @private
-   * @param {ValidationErrors} errors - 欲驗證的錯誤欄位 (by Angular)
-   * @param {('account' | 'password')} fieldName - 欄位名稱
+   * @param {FormControl} formControl - 欲取得錯誤訊息的欄位的表單控制項(by Angular)
+   * @return {*}  {string}
    * @memberof AppComponent
    */
-  private validationCheck(
-    errors: ValidationErrors,
-    fieldName: 'account' | 'password'
-  ): void {
+  getErrorMessage(formControl: FormControl): string {
     let errorMessage: string;
-    if (!errors) {
+    if(!formControl.errors || formControl.pristine) {
       errorMessage = '';
-    } else if (errors.required) {
+    } else if (formControl.errors.required) {
       errorMessage = '此欄位必填';
-    } else if (errors.pattern) {
-      errorMessage = '格式有誤，請重新輸入';
-    } else if (errors.minlength) {
+    } else if (formControl.errors.pattern) {
+      errorMessage = '格式有誤，請重新輸入'
+    } else if (formControl.errors.minlength) {
       errorMessage = '密碼長度最短不得低於8碼';
+    } else if (formControl.errors.maxlength) {
+      errorMessage = '密碼長度最長不得超過16碼'
     }
-    this.setErrorMessage(fieldName, errorMessage);
-  }
-
-  /**
-   * 設定指定欄位的錯誤訊息
-   *
-   * @private
-   * @param {('account' | 'password')} fieldName - 欲設定錯誤訊息的欄位名稱
-   * @param {string} errorMessage - 欲設定的錯誤訊息
-   * @memberof AppComponent
-   */
-  private setErrorMessage(
-    fieldName: 'account' | 'password',
-    errorMessage: string
-  ): void {
-    if (fieldName === 'account' ) {
-      this.accountErrorMessage = errorMessage;
-    } else {
-      this.passwordErrorMessage = errorMessage;
-    }
+    return errorMessage;
   }
 }
