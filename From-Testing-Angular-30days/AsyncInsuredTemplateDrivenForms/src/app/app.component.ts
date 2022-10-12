@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
+import { Component, QueryList, ViewChildren } from '@angular/core';
+import { NgModel, ValidationErrors } from '@angular/forms';
 import { Insured } from './insured.type';
 
 @Component({
@@ -8,6 +8,8 @@ import { Insured } from './insured.type';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChildren('nameNgModel') nameNgModelRefList!: QueryList<NgModel>;
+  @ViewChildren('ageNgModel') ageNgModelRefList!: QueryList<NgModel>;
 
   // 被保險人清單
   insuredList: Insured[] = [];
