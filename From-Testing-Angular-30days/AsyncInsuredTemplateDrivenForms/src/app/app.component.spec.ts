@@ -468,6 +468,7 @@ describe('AppComponent', () => {
         }];
         // Act
         fixture.detectChanges();
+        compiledComponent.querySelector('button[type="submit"]');
         // Assert
         expect(buttonElement.hasAttribute('disabled')).toBe(true);
       })
@@ -485,7 +486,6 @@ describe('AppComponent', () => {
         fixture.detectChanges();
         // Assert
         expect(buttonElement.hasAttribute('diabled')).toBe(false);
-
       });
 
 
