@@ -1,5 +1,4 @@
-import insuredForm from '../fixtures/insured-form.json';
-/// <reference types="cypress" />
+import * as insuredForm from '../fixtures/insured-form.json'
 
 describe('Insured Form', () => {
   beforeEach(() => {

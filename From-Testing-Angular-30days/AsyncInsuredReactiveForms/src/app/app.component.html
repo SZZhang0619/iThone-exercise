@@ -26,6 +26,16 @@
         </select>
         <span class="error-message">{{ getErrorMessage("age", index) }}</span>
       </p>
+      <p><label>聯絡資訊：</label></p>
+      <p>
+        <select formControlName="contactInfoType">
+          <option value="">請選擇</option>
+          <option value="mobile">手機</option>
+          <option value="email">E-Mail</option>
+        </select>
+        <input type="text" formControlName="contactInfo">
+        <span class="error-message">{{ getErrorMessage("contactInfo", index) }}</span>
+      </p>
       <button type="button" (click)="deleteInsured(index)">刪除</button>
     </fieldset>
   </ng-container>
@@ -34,3 +44,4 @@
     <button type="submit" [disabled]="isFormInvalid">送出</button>
   </p>
 </form>
+<pre>{{ formGroup.getRawValue() | json }}</pre>
