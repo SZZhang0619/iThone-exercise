@@ -15,9 +15,14 @@
     "lib": [
       "es2018",
       "dom"
+    ],
+    "types": [
+      "cypress",
+      "node"
     ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
-  }
+  },
+  "include": ["**/*.ts"]
 }
