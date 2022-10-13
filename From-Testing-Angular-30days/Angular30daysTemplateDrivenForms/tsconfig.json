@@ -24,5 +24,12 @@
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
   },
-  "include": ["**/*.ts"]
+
+  "include": [
+    "src",
+    "node_modules/cypress"
+  ],
+  "exclude": [
+    "node_modules/cypress"
+  ]
 }

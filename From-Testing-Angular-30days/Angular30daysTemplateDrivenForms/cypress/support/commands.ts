@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -11,10 +10,19 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('fillWith', (account, password) => {
+
+declare namespace Cypress {
+  interface Chainable {
+    // 這裡面擺放的是自訂 Command 的宣告
+    // 例如：
+    fillWith(account: string, password: string): Chainable<string>
+  }
+}
+
+Cypress.Commands.add('fillWith', (account: string, password: string) => {
   cy.get('#account').type(account);
   cy.get('#password').type(password);
-});
+})
 //
 //
 // -- This is a child command --
